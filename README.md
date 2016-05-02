@@ -4,6 +4,12 @@
 
 Easily stub out Meteor collections with in-memory local collections. The idea here is to allow the use of things like Factories for unit tests and styleguides without having to restrict ourselves to making components "pure". So a component (ie. a template) can still call `Widgets.findOne(widgetId)`, it's just that we will have stubbed out `Widgets` to point to a local collection that we can completely control in our test.
 
+## Installation
+
+```
+meteor add hwillson:stub-collections
+```
+
 ## API
 
 - `StubCollections.add([collection1, collection2, ...])` - register the default list of collections to stub.
@@ -13,7 +19,7 @@ Easily stub out Meteor collections with in-memory local collections. The idea he
 
 ## Examples
 
-See this packages [tests]().
+See this packages [tests](https://github.com/hwillson/meteor-stub-collections/blob/3a0ac26121d8e864cd5b78959b0edb7b9532c761/stub_collections.tests.js).
 
 ## History
 
