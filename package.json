@@ -1,0 +1,15 @@
+{
+  "name": "meteor-stub-collections",
+  "private": true,
+  "scripts": {
+    "test": "meteor test-packages ./ --driver-package practicalmeteor:mocha"
+  },
+  "devDependencies": {
+    "eslint": "^2.8.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "eslint-plugin-react": "^4.2.3"
+  },
+  "eslintConfig": {
+    "extends": "airbnb"
+  }
+}
