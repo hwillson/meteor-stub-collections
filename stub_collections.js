@@ -5,6 +5,7 @@ import { sinon } from 'meteor/practicalmeteor:sinon';
 const StubCollections = (() => {
   const _public = {};
   const _private = {};
+  const sandbox = sinon.sandbox.create();
 
   _public.add = (collections) => {
     _private.collections.push(...collections);
@@ -28,7 +29,7 @@ const StubCollections = (() => {
   };
 
   _public.restore = () => {
-    _.each(_private.pairs, _private.restorePair);
+    sandbox.restore();
     _private.pairs = {};
   };
 
@@ -38,17 +39,13 @@ const StubCollections = (() => {
 
   _private.stubPair = (pair) => {
     _private.symbols.forEach((symbol) => {
-      sinon.stub(
-        pair.collection,
-        symbol,
-        _.bind(pair.localCollection[symbol], pair.localCollection)
-      );
-    });
-  };
-
-  _private.restorePair = (pair) => {
-    _private.symbols.forEach((symbol) => {
-      pair.collection[symbol].restore();
+      if (_.isFunction(pair.localCollection[symbol])) {
+        sandbox.stub(
+          pair.collection,
+          symbol,
+          _.bind(pair.localCollection[symbol], pair.localCollection)
+        );
+      }
     });
   };
 

@@ -48,3 +48,24 @@ describe('StubCollections', function () {
     expect(widgets.find().count()).to.equal(1);
   });
 });
+
+const Something = new Mongo.Collection('something');
+describe('Issue #1: Uses sandbox', function() {
+  before(function() {
+    StubCollections.stub(Something);
+  });
+
+  after(function() {
+    StubCollections.restore();
+  });
+
+  it('should pass', function() {
+    expect(true).to.equal(true);
+  });
+
+  it('should pass with exception', function(){
+    expect(function() {
+      method_does_not_exist();
+    }).to.throw(Error);
+  });
+});
