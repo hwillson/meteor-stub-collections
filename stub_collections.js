@@ -3,18 +3,19 @@ import { Mongo } from 'meteor/mongo';
 import { sinon } from 'meteor/practicalmeteor:sinon';
 
 const StubCollections = (() => {
-  const _public = {};
-  const _private = {};
-  const sandbox = sinon.sandbox.create();
+  const publicApi = {};
+  const privateApi = {};
 
-  _public.add = (collections) => {
-    _private.collections.push(...collections);
+  /* Public API */
+
+  publicApi.add = (collections) => {
+    privateApi.collections.push(...collections);
   };
 
-  _public.stub = (collections) => {
-    const pendingCollections = collections || _private.collections;
+  publicApi.stub = (collections) => {
+    const pendingCollections = collections || privateApi.collections;
     [].concat(pendingCollections).forEach((collection) => {
-      if (!_private.pairs[collection._name]) {
+      if (!privateApi.pairs[collection._name]) {
         const options = {
           transform: collection._transform,
         };
@@ -22,25 +23,28 @@ const StubCollections = (() => {
           localCollection: new collection.constructor(null, options),
           collection,
         };
-        _private.stubPair(pair);
-        _private.pairs[collection._name] = pair;
+        privateApi.stubPair(pair);
+        privateApi.pairs[collection._name] = pair;
       }
     });
   };
 
-  _public.restore = () => {
-    sandbox.restore();
-    _private.pairs = {};
+  publicApi.restore = () => {
+    privateApi.sandbox.restore();
+    privateApi.pairs = {};
   };
 
-  _private.pairs = {};
-  _private.collections = [];
-  _private.symbols = _.keys(Mongo.Collection.prototype);
+  /* Private API */
 
-  _private.stubPair = (pair) => {
-    _private.symbols.forEach((symbol) => {
+  privateApi.sandbox = sinon.sandbox.create();
+  privateApi.pairs = {};
+  privateApi.collections = [];
+  privateApi.symbols = _.keys(Mongo.Collection.prototype);
+
+  privateApi.stubPair = (pair) => {
+    privateApi.symbols.forEach((symbol) => {
       if (_.isFunction(pair.localCollection[symbol])) {
-        sandbox.stub(
+        privateApi.sandbox.stub(
           pair.collection,
           symbol,
           _.bind(pair.localCollection[symbol], pair.localCollection)
@@ -49,7 +53,7 @@ const StubCollections = (() => {
     });
   };
 
-  return _public;
+  return publicApi;
 })();
 
 export default StubCollections;
