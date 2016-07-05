@@ -10,6 +10,13 @@ Easily stub out Meteor collections with in-memory local collections. The idea he
 meteor add hwillson:stub-collections
 ```
 
+### Usage via ES6 import
+
+```js
+// client or server
+import StubCollections from 'meteor/hwillson:stub-collections';
+```
+
 ## API
 
 - `StubCollections.add([collection1, collection2, ...])` - register the default list of collections to stub.
