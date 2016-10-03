@@ -44,11 +44,13 @@ const StubCollections = (() => {
   privateApi.stubPair = (pair) => {
     privateApi.symbols.forEach((symbol) => {
       if (_.isFunction(pair.localCollection[symbol])) {
-        privateApi.sandbox.stub(
-          pair.collection,
-          symbol,
-          _.bind(pair.localCollection[symbol], pair.localCollection)
-        );
+        if (symbol != 'simpleSchema') {
+          privateApi.sandbox.stub(
+            pair.collection,
+            symbol,
+            _.bind(pair.localCollection[symbol], pair.localCollection)
+          );
+        }
       }
     });
   };
