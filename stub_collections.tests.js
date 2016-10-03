@@ -21,7 +21,7 @@ if (Meteor.isServer) {
   Meteor.subscribe('widgets');
 }
 
-describe.only('StubCollections', function () {
+describe('StubCollections', function () {
   it('should stub added/registered collections', function () {
     expect(widgets.find().count()).to.equal(1);
 
@@ -51,7 +51,7 @@ describe.only('StubCollections', function () {
     expect(widgets.find().count()).to.equal(1);
   });
 
-  it.only('should stub the schema of a collection', function () {
+  it('should stub the schema of a collection', function () {
     expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
     StubCollections.stub([widgets]);
     expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
