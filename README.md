@@ -32,6 +32,10 @@ See this packages [tests](https://github.com/hwillson/meteor-stub-collections/bl
 
 This project was originally created by MDG, and shipped with the [Meteor Guide's](http://guide.meteor.com) [todos](https://github.com/meteor/todos) reference application (thanks MDG!). If you have any questions/comments, open an issue [here](https://github.com/hwillson/meteor-stub-collections/issues).
 
+### 1.0.2
+
+- Omit the stubbing of a collection's schema if using aldeed:collection2 package (thanks [@drewmoore](https://github.com/drewmoore)!).
+
 ### 1.0.1
 
 - Fixed bind issues with non-functions (thanks [@Fabs](https://github.com/Fabs)!).
