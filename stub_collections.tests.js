@@ -4,10 +4,13 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { expect } from 'meteor/practicalmeteor:chai';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import StubCollections from './stub_collections.js';
 
 const widgets = new Mongo.Collection('widgets');
+const schema = { schemaKey: { type: String, optional: true }};
+widgets.attachSchema(new SimpleSchema(schema))
 if (Meteor.isServer) {
   widgets.remove({});
   widgets.insert({});
@@ -46,6 +49,14 @@ describe('StubCollections', function () {
 
     StubCollections.restore();
     expect(widgets.find().count()).to.equal(1);
+  });
+
+  it('should stub the schema of a collection', function () {
+    expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
+    StubCollections.stub([widgets]);
+    expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
+    StubCollections.restore();
+    expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
   });
 });
 

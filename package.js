@@ -23,6 +23,7 @@ Package.onUse(function onUse(api) {
 
 Package.onTest(function onTest(api) {
   api.use('hwillson:stub-collections');
+  api.use('aldeed:collection2@2.10.0');
   api.use(['ecmascript', 'mongo', 'practicalmeteor:chai']);
   api.mainModule('stub_collections.tests.js');
 });

@@ -43,7 +43,7 @@ const StubCollections = (() => {
 
   privateApi.stubPair = (pair) => {
     privateApi.symbols.forEach((symbol) => {
-      if (_.isFunction(pair.localCollection[symbol])) {
+      if (_.isFunction(pair.localCollection[symbol]) && symbol != 'simpleSchema') {
         privateApi.sandbox.stub(
           pair.collection,
           symbol,
