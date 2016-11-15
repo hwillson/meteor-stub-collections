@@ -39,7 +39,9 @@ const StubCollections = (() => {
   privateApi.sandbox = sinon.sandbox.create();
   privateApi.pairs = {};
   privateApi.collections = [];
-  privateApi.symbols = _.keys(Mongo.Collection.prototype);
+  privateApi.symbols = [];
+  for (let symbol in Mongo.Collection.prototype)
+    privateApi.symbols.push(symbol);
 
   privateApi.stubPair = (pair) => {
     privateApi.symbols.forEach((symbol) => {
