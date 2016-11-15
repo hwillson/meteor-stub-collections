@@ -40,12 +40,14 @@ const StubCollections = (() => {
   privateApi.pairs = {};
   privateApi.collections = [];
   privateApi.symbols = [];
-  for (let symbol in Mongo.Collection.prototype)
+  for (let symbol in Mongo.Collection.prototype) {
     privateApi.symbols.push(symbol);
+  }
 
   privateApi.stubPair = (pair) => {
     privateApi.symbols.forEach((symbol) => {
-      if (_.isFunction(pair.localCollection[symbol]) && symbol != 'simpleSchema') {
+      if (_.isFunction(pair.localCollection[symbol]) 
+          && symbol != 'simpleSchema') {
         privateApi.sandbox.stub(
           pair.collection,
           symbol,
