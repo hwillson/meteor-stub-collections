@@ -32,6 +32,10 @@ See this packages [tests](https://github.com/hwillson/meteor-stub-collections/bl
 
 This project was originally created by MDG, and shipped with the [Meteor Guide's](http://guide.meteor.com) [todos](https://github.com/meteor/todos) reference application (thanks MDG!). If you have any questions/comments, open an issue [here](https://github.com/hwillson/meteor-stub-collections/issues).
 
+### 1.0.4
+
+- Fixes [issue #11](https://github.com/hwillson/meteor-stub-collections/issues/11) (again) where [CollectionHooks](https://github.com/matb33/meteor-collection-hooks/) Collections `direct` accessors were not properly stubbed (thanks [zeroasterisk](https://github.com/zeroasterisk)!).
+
 ### 1.0.3
 
 - Fixes [issue #11](https://github.com/hwillson/meteor-stub-collections/issues/11) where some inherited Collection properties were not properly stubbed (thanks [@Davidyuk](https://github.com/Davidyuk)!).
