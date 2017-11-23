@@ -1,13 +1,18 @@
-/* global Package */
+/* global Package, Npm */
 /* eslint-disable prefer-arrow-callback */
 
 Package.describe({
   name: 'hwillson:stub-collections',
-  version: '1.0.3',
+  version: '1.0.4',
   summary: 'Stub out Meteor collections with in-memory local collections.',
   documentation: 'README.md',
   git: 'https://github.com/hwillson/meteor-stub-collections.git',
   debugOnly: true,
+});
+
+Npm.depends({
+  chai: '4.1.2',
+  sinon: '4.1.2',
 });
 
 Package.onUse(function onUse(api) {
@@ -15,15 +20,18 @@ Package.onUse(function onUse(api) {
   api.use([
     'ecmascript',
     'mongo',
-    'practicalmeteor:sinon@1.14.1_2',
-    'underscore',
   ]);
-  api.mainModule('stub_collections.js');
+  api.mainModule('index.js');
 });
 
 Package.onTest(function onTest(api) {
-  api.use('hwillson:stub-collections');
-  api.use('aldeed:collection2@2.10.0');
-  api.use(['ecmascript', 'mongo', 'practicalmeteor:chai']);
-  api.mainModule('stub_collections.tests.js');
+  api.use([
+    'hwillson:stub-collections',
+    'aldeed:simple-schema@1.5.3',
+    'aldeed:collection2@2.10.0',
+    'ecmascript',
+    'mongo',
+    'meteortesting:mocha',
+  ]);
+  api.mainModule('tests.js');
 });

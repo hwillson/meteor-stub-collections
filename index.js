@@ -1,6 +1,5 @@
-import { _ } from 'meteor/underscore';
 import { Mongo } from 'meteor/mongo';
-import { sinon } from 'meteor/practicalmeteor:sinon';
+import sinon from 'sinon';
 
 const StubCollections = (() => {
   const publicApi = {};
@@ -39,19 +38,14 @@ const StubCollections = (() => {
   privateApi.sandbox = sinon.sandbox.create();
   privateApi.pairs = {};
   privateApi.collections = [];
-  privateApi.symbols = [];
-  for (let symbol in Mongo.Collection.prototype) {
-    privateApi.symbols.push(symbol);
-  }
+  privateApi.symbols = Object.keys(Mongo.Collection.prototype);
 
   privateApi.stubPair = (pair) => {
     privateApi.symbols.forEach((symbol) => {
-      if (_.isFunction(pair.localCollection[symbol]) 
-          && symbol != 'simpleSchema') {
-        privateApi.sandbox.stub(
-          pair.collection,
-          symbol,
-          _.bind(pair.localCollection[symbol], pair.localCollection)
+      if (typeof pair.localCollection[symbol] === 'function'
+          && symbol !== 'simpleSchema') {
+        privateApi.sandbox.stub(pair.collection, symbol).callsFake(
+          pair.localCollection[symbol].bind(pair.localCollection),
         );
       }
     });
