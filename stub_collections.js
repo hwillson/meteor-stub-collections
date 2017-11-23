@@ -9,7 +9,7 @@ const StubCollections = (() => {
   /* Public API */
 
   publicApi.add = (collections) => {
-    privateApi.collections.push(...collections);
+    privateApi.collections = privateApi.collections.concat(collections);
   };
 
   publicApi.stub = (collections) => {
