@@ -18,10 +18,8 @@ const StubCollections = (() => {
         const options = {
           transform: collection._transform,
         };
-        const pair = {
-          localCollection: new collection.constructor(null, options),
-          collection,
-        };
+        const localCollection = new collection.constructor(null, options);
+        const pair = { localCollection, collection };
         privateApi.stubPair(pair);
         privateApi.pairs[collection._name] = pair;
       }
@@ -40,15 +38,30 @@ const StubCollections = (() => {
   privateApi.collections = [];
   privateApi.symbols = Object.keys(Mongo.Collection.prototype);
 
-  privateApi.stubPair = (pair) => {
+  privateApi.assignLocalFunctionsToReal = (local, real) => {
     privateApi.symbols.forEach((symbol) => {
-      if (typeof pair.localCollection[symbol] === 'function'
-          && symbol !== 'simpleSchema') {
-        privateApi.sandbox.stub(pair.collection, symbol).callsFake(
-          pair.localCollection[symbol].bind(pair.localCollection),
-        );
-      }
+      if (symbol === 'simpleSchema') return;
+      if (typeof local[symbol] !== 'function') return;
+      if (typeof real[symbol] !== 'function') return;
+      privateApi.sandbox.stub(real, symbol).callsFake(
+        local[symbol].bind(local),
+      );
     });
+  };
+
+  privateApi.stubPair = (pair) => {
+    privateApi.assignLocalFunctionsToReal(
+      pair.localCollection,
+      pair.collection,
+    );
+    // If using `matb33:collection-hooks`, make sure direct functions are also
+    // stubbed.
+    if (pair.collection.direct) {
+      privateApi.assignLocalFunctionsToReal(
+        pair.localCollection,
+        pair.collection.direct,
+      );
+    }
   };
 
   return publicApi;
