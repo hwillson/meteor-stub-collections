@@ -19,10 +19,8 @@ const StubCollections = (() => {
         const options = {
           transform: collection._transform,
         };
-        const pair = {
-          localCollection: new collection.constructor(null, options),
-          collection,
-        };
+        const localCollection = new collection.constructor(null, options);
+        const pair = { localCollection, collection };
         privateApi.stubPair(pair);
         privateApi.pairs[collection._name] = pair;
       }
@@ -44,17 +42,23 @@ const StubCollections = (() => {
     privateApi.symbols.push(symbol);
   }
 
-  privateApi.stubPair = (pair) => {
+
+  privateApi.assignLocalFunctionsToReal = (local, real) => {
     privateApi.symbols.forEach((symbol) => {
-      if (_.isFunction(pair.localCollection[symbol]) 
-          && symbol != 'simpleSchema') {
-        privateApi.sandbox.stub(
-          pair.collection,
-          symbol,
-          _.bind(pair.localCollection[symbol], pair.localCollection)
-        );
-      }
+      if (symbol === 'simpleSchema') return;
+      if (!_.isFunction(local[symbol])) return;
+      if (!_.isFunction(real[symbol])) return;
+      // replace all collection functions w/ local collection functions
+      privateApi.sandbox.stub(real, symbol, _.bind(local[symbol], local));
     });
+  };
+
+  privateApi.stubPair = (pair) => {
+    privateApi.assignLocalFunctionsToReal(pair.localCollection, pair.collection);
+    if (pair.collection.direct) {
+      // the real collection has hooks applied - we need to localify the direct functions too
+      privateApi.assignLocalFunctionsToReal(pair.localCollection, pair.collection.direct);
+    }
   };
 
   return publicApi;
