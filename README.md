@@ -32,9 +32,17 @@ See this packages [tests](https://github.com/hwillson/meteor-stub-collections/bl
 
 This project was originally created by MDG, and shipped with the [Meteor Guide's](http://guide.meteor.com) [todos](https://github.com/meteor/todos) reference application (thanks MDG!). If you have any questions/comments, open an issue [here](https://github.com/hwillson/meteor-stub-collections/issues).
 
+### 1.0.6 (2017-11-24)
+
+- Proper fix for issue [#22](reported in https://github.com/hwillson/meteor-stub-collections/issues/22)
+
+### 1.0.5 (2017-11-24)
+
+- Re-publish to deal with issue [#22](reported in https://github.com/hwillson/meteor-stub-collections/issues/22)
+
 ### 1.0.4 (2017-11-23)
 
-- Fix for [issue #11](https://github.com/hwillson/meteor-stub-collections/issues/11) (again) where [CollectionHooks](https://github.com/matb33/meteor-collection-hooks/) Collections `direct` accessors were not properly stubbed (thanks [zeroasterisk](https://github.com/zeroasterisk)!).
+- Fix for [issue #11](https://github.com/hwillson/meteor-stub-collections/issues/11) (again) where [CollectionHooks](https://github.com/matb33/meteor-collection-hooks/) Collections `direct` accessors were not properly stubbed (thanks [@zeroasterisk](https://github.com/zeroasterisk)!).
 - Allow single collections with `add` ([PR #18](https://github.com/hwillson/meteor-stub-collections/pull/18) - thanks [@Floriferous](https://github.com/Floriferous)!).
 - Removed `underscore`
 - Replaced `practicalmeteor:mocha` with `meteortesting:mocha`

@@ -3,7 +3,7 @@
 
 Package.describe({
   name: 'hwillson:stub-collections',
-  version: '1.0.4',
+  version: '1.0.6',
   summary: 'Stub out Meteor collections with in-memory local collections.',
   documentation: 'README.md',
   git: 'https://github.com/hwillson/meteor-stub-collections.git',
@@ -31,7 +31,7 @@ Package.onTest(function onTest(api) {
     'aldeed:collection2@2.10.0',
     'ecmascript',
     'mongo',
-    'meteortesting:mocha',
+    'meteortesting:mocha@0.5.0',
   ]);
   api.mainModule('tests.js');
 });
