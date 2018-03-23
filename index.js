@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { Random } from 'meteor/random';
 import sinon from 'sinon';
 
 const StubCollections = (() => {
@@ -16,9 +17,11 @@ const StubCollections = (() => {
     [].concat(pendingCollections).forEach((collection) => {
       if (!privateApi.pairs[collection._name]) {
         const options = {
+          connection: null,
           transform: collection._transform,
         };
-        const localCollection = new collection.constructor(null, options);
+        const stubName = collection._name + 'Stub' + Random.id();
+        const localCollection = new collection.constructor(stubName, options);
         const pair = { localCollection, collection };
         privateApi.stubPair(pair);
         privateApi.pairs[collection._name] = pair;
