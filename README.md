@@ -32,6 +32,10 @@ See this packages [tests](https://github.com/hwillson/meteor-stub-collections/bl
 
 This project was originally created by MDG, and shipped with the [Meteor Guide's](http://guide.meteor.com) [todos](https://github.com/meteor/todos) reference application (thanks MDG!). If you have any questions/comments, open an issue [here](https://github.com/hwillson/meteor-stub-collections/issues).
 
+### 1.0.7 (2018-03-23)
+
+- Fix for issue [#14](https://github.com/hwillson/meteor-stub-collections/issues/14) (thanks [@coagmano](https://github.com/coagmano)!).
+
 ### 1.0.6 (2017-11-24)
 
 - Proper fix for issue [#22](reported in https://github.com/hwillson/meteor-stub-collections/issues/22)
