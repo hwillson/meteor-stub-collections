@@ -65,9 +65,10 @@ describe('StubCollections', function () {
   it("should stub mutliple null collections", function() {
     localWidgets1.insert({});
     localWidgets2.insert({});
+    localWidgets2.insert({});
 
     expect(localWidgets1.find().count()).to.equal(1);
-    expect(localWidgets2.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
 
     StubCollections.stub([localWidgets1, localWidgets2]);
 
@@ -77,22 +78,27 @@ describe('StubCollections', function () {
     localWidgets1.insert({});
     localWidgets1.insert({});
     localWidgets2.insert({});
-    localWidgets2.insert({});
     
     expect(localWidgets1.find().count()).to.equal(2);
-    expect(localWidgets2.find().count()).to.equal(2);
+    expect(localWidgets2.find().count()).to.equal(1);
     
     StubCollections.restore();
 
     expect(localWidgets1.find().count()).to.equal(1);
-    expect(localWidgets2.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
 
     StubCollections.stub([localWidgets1, localWidgets2]);
 
     localWidgets1.insert({});
     localWidgets2.insert({});
+    localWidgets2.insert({});
 
     expect(localWidgets1.find().count()).to.equal(1);
-    expect(localWidgets2.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
+
+    StubCollections.restore();
+    
+    expect(localWidgets1.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
   });
 });
