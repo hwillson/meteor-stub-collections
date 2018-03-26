@@ -15,29 +15,33 @@ const StubCollections = (() => {
   publicApi.stub = (collections) => {
     const pendingCollections = collections || privateApi.collections;
     [].concat(pendingCollections).forEach((collection) => {
-      if (!privateApi.pairs[collection._name]) {
+      if (!privateApi.pairs.has(collection)) {
         const options = {
           connection: null,
           transform: collection._transform,
         };
-        const stubName = collection._name + 'Stub' + Random.id();
-        const localCollection = new collection.constructor(stubName, options);
-        const pair = { localCollection, collection };
-        privateApi.stubPair(pair);
-        privateApi.pairs[collection._name] = pair;
+        const localCollection = new collection.constructor(collection._name, options);
+        privateApi.stubPair({ localCollection, collection });
+        privateApi.pairs.set(collection, localCollection);
       }
     });
   };
 
   publicApi.restore = () => {
+    // Pre-emptively remove the documents from the local collection because if
+    // a collection with the same name is stubbed later it will still have the
+    // documents from LocalConnectionDriver's internal cache.
+    for (const localCollection of privateApi.pairs.values()) {
+      localCollection.remove({});
+    }
     privateApi.sandbox.restore();
-    privateApi.pairs = {};
+    privateApi.pairs.clear();
   };
 
   /* Private API */
 
   privateApi.sandbox = sinon.sandbox.create();
-  privateApi.pairs = {};
+  privateApi.pairs = new Map();
   privateApi.collections = [];
   privateApi.symbols = Object.keys(Mongo.Collection.prototype);
 

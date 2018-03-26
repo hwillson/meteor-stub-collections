@@ -9,6 +9,9 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import StubCollections from './index';
 
 const widgets = new Mongo.Collection('widgets');
+const localWidgets1 = new Mongo.Collection(null);
+const localWidgets2 = new Mongo.Collection(null);
+
 const schema = { schemaKey: { type: String, optional: true } };
 widgets.attachSchema(new SimpleSchema(schema));
 if (Meteor.isServer) {
@@ -57,5 +60,45 @@ describe('StubCollections', function () {
     expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
     StubCollections.restore();
     expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
+  });
+  
+  it("should stub mutliple null collections", function() {
+    localWidgets1.insert({});
+    localWidgets2.insert({});
+    localWidgets2.insert({});
+
+    expect(localWidgets1.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
+
+    StubCollections.stub([localWidgets1, localWidgets2]);
+
+    expect(localWidgets1.find().count()).to.equal(0);
+    expect(localWidgets2.find().count()).to.equal(0);
+
+    localWidgets1.insert({});
+    localWidgets1.insert({});
+    localWidgets2.insert({});
+    
+    expect(localWidgets1.find().count()).to.equal(2);
+    expect(localWidgets2.find().count()).to.equal(1);
+    
+    StubCollections.restore();
+
+    expect(localWidgets1.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
+
+    StubCollections.stub([localWidgets1, localWidgets2]);
+
+    localWidgets1.insert({});
+    localWidgets2.insert({});
+    localWidgets2.insert({});
+
+    expect(localWidgets1.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
+
+    StubCollections.restore();
+    
+    expect(localWidgets1.find().count()).to.equal(1);
+    expect(localWidgets2.find().count()).to.equal(2);
   });
 });
