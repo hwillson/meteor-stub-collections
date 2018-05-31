@@ -12,7 +12,7 @@ Package.describe({
 
 Npm.depends({
   chai: '4.1.2',
-  sinon: '4.1.2',
+  sinon: '5.0.10',
 });
 
 Package.onUse(function onUse(api) {
