@@ -3,7 +3,7 @@
 
 Package.describe({
   name: 'hwillson:stub-collections',
-  version: '1.0.10',
+  version: '1.0.9',
   summary: 'Stub out Meteor collections with in-memory local collections.',
   documentation: 'README.md',
   git: 'https://github.com/hwillson/meteor-stub-collections.git',

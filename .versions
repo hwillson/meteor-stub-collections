@@ -25,9 +25,9 @@ ecmascript-runtime-server@0.5.0
 ejson@1.1.0
 geojson-utils@1.0.10
 http@1.4.0
-hwillson:stub-collections@1.0.7
+hwillson:stub-collections@1.0.8
 id-map@1.1.0
-local-test:hwillson:stub-collections@1.0.7
+local-test:hwillson:stub-collections@1.0.8
 logging@1.1.19
 mdg:validation-error@0.2.0
 meteor@1.8.2

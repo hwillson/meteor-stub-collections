@@ -34,8 +34,8 @@ This project was originally created by MDG, and shipped with the [Meteor Guide's
 
 ### 1.0.9 (2018-06-27)
 
-- Update `sinon` to avoid timeouts
-  ([#30](https://github.com/hwillson/meteor-stub-collections/pull/30) - thanks [@sebakerckhof](https://github.com/sebakerckhof)!).
+- Update `sinon` to avoid timeouts ([#30](https://github.com/hwillson/meteor-stub-collections/pull/30) - thanks [@sebakerckhof](https://github.com/sebakerckhof)!).
+- Upgrade dependencies ([#31](https://github.com/hwillson/meteor-stub-collections/pull/31) - thanks [@sebakerckhof](https://github.com/sebakerckhof)!).
 
 ### 1.0.8 (2018-03-26)
 
