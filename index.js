@@ -40,7 +40,7 @@ const StubCollections = (() => {
 
   /* Private API */
 
-  privateApi.sandbox = sinon.sandbox.create();
+  privateApi.sandbox = sinon.createSandbox();
   privateApi.pairs = new Map();
   privateApi.collections = [];
   privateApi.symbols = Object.keys(Mongo.Collection.prototype);
