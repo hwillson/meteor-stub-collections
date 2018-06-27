@@ -32,6 +32,11 @@ See this packages [tests](https://github.com/hwillson/meteor-stub-collections/bl
 
 This project was originally created by MDG, and shipped with the [Meteor Guide's](http://guide.meteor.com) [todos](https://github.com/meteor/todos) reference application (thanks MDG!). If you have any questions/comments, open an issue [here](https://github.com/hwillson/meteor-stub-collections/issues).
 
+### 1.0.9 (2018-06-27)
+
+- Update `sinon` to avoid timeouts
+  ([#30](https://github.com/hwillson/meteor-stub-collections/pull/30) - thanks [@sebakerckhof](https://github.com/sebakerckhof)!).
+
 ### 1.0.8 (2018-03-26)
 
 - Fixes for [#14](https://github.com/hwillson/meteor-stub-collections/issues/14) and [#24](https://github.com/hwillson/meteor-stub-collections/issues/24) (thanks [@coagmano](https://github.com/coagmano)!).
