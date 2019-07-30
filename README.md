@@ -22,6 +22,7 @@ import StubCollections from 'meteor/hwillson:stub-collections';
 - `StubCollections.add([collection1, collection2, ...])` - register the default list of collections to stub.
 - `StubCollections.stub()` - stub all collections that have been previously enabled for stubbing via `add()`.
 - `StubCollections.stub([collection1, collection2, ...])` - stub a specific list of collections, overriding the list registered via `add()`.
+- `StubCollections.reset()` - remove all documents from stubbed collections (e.g. call at the end of each test)
 - `StubCollections.restore()` - undo stubbing (call at the end of tests, on routing away, etc.)
 
 ## Examples

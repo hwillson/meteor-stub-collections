@@ -27,13 +27,17 @@ const StubCollections = (() => {
     });
   };
 
+  publicApi.reset = () => {
+    for (const localCollection of privateApi.pairs.values()) {
+      localCollection.remove({});
+    }
+  };
+
   publicApi.restore = () => {
     // Pre-emptively remove the documents from the local collection because if
     // a collection with the same name is stubbed later it will still have the
     // documents from LocalConnectionDriver's internal cache.
-    for (const localCollection of privateApi.pairs.values()) {
-      localCollection.remove({});
-    }
+    publicApi.reset();
     privateApi.sandbox.restore();
     privateApi.pairs.clear();
   };
