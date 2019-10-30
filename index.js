@@ -43,7 +43,12 @@ const StubCollections = (() => {
   privateApi.sandbox = sinon.createSandbox();
   privateApi.pairs = new Map();
   privateApi.collections = [];
-  privateApi.symbols = Object.keys(Mongo.Collection.prototype);
+  // Retrieve all property names to stub. Don't use Object.keys as it will not return inherited properties when using
+  // common packages extending collections.
+  privateApi.symbols = [];
+  for (let symbol in Mongo.Collection.prototype) {
+    privateApi.symbols.push(symbol);
+  }
 
   privateApi.assignLocalFunctionsToReal = (local, real) => {
     privateApi.symbols.forEach((symbol) => {
