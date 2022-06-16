@@ -4,8 +4,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { expect } from 'chai';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-
+import SimpleSchema from 'simpl-schema';
 import StubCollections from './index';
 
 const widgets = new Mongo.Collection('widgets');
@@ -13,7 +12,19 @@ const localWidgets1 = new Mongo.Collection(null);
 const localWidgets2 = new Mongo.Collection(null);
 
 const schema = { schemaKey: { type: String, optional: true } };
-widgets.attachSchema(new SimpleSchema(schema));
+const options = {
+  clean: {
+    autoConvert: false,
+    filter: false,
+    getAutoValues: false,
+    removeEmptyStrings: false,
+    removeNullsFromArrays: false,
+    trimStrings: false
+  },
+  humanizeAutoLabels: false,
+  requiredByDefault: true
+};
+widgets.attachSchema(new SimpleSchema(schema, options));
 if (Meteor.isServer) {
   widgets.remove({});
   widgets.insert({});
@@ -60,6 +71,13 @@ describe('StubCollections', function () {
     expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
     StubCollections.restore();
     expect(widgets.simpleSchema()._firstLevelSchemaKeys).to.include('schemaKey');
+  });
+
+  it('should be compatible with collection2', function () {
+    StubCollections.stub([widgets]);
+    expect(() => widgets.insert({ foo: 'bar' }))
+      .to.throw('foo is not allowed by the schema in widgets insert');
+    StubCollections.restore();
   });
   
   it("should stub mutliple null collections", function() {

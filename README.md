@@ -28,6 +28,14 @@ import StubCollections from 'meteor/hwillson:stub-collections';
 
 See this packages [tests](https://github.com/hwillson/meteor-stub-collections/blob/3a0ac26121d8e864cd5b78959b0edb7b9532c761/stub_collections.tests.js).
 
+## Testing
+
+Run the tests for this package using
+
+```bash
+$ meteor test-packages ./ --driver-package=meteortesting:mocha
+```
+
 ## History
 
 This project was originally created by MDG, and shipped with the [Meteor Guide's](http://guide.meteor.com) [todos](https://github.com/meteor/todos) reference application (thanks MDG!). If you have any questions/comments, open an issue [here](https://github.com/hwillson/meteor-stub-collections/issues).
