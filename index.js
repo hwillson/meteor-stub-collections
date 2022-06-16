@@ -1,5 +1,4 @@
 import { Mongo } from 'meteor/mongo';
-import { Random } from 'meteor/random';
 import sinon from 'sinon';
 
 const StubCollections = (() => {
@@ -21,6 +20,13 @@ const StubCollections = (() => {
           transform: collection._transform,
         };
         const localCollection = new collection.constructor(collection._name, options);
+
+        // compat with aldeed:collection2
+        if (collection.attachSchema && collection._c2 && Array.isArray(collection._c2._simpleSchemas)) {
+          console.debug(collection._name, 'attach schema')
+          collection._c2._simpleSchemas.forEach(entry => localCollection.attachSchema(entry.schema));
+        }
+
         privateApi.stubPair({ localCollection, collection });
         privateApi.pairs.set(collection, localCollection);
       }
