@@ -1,6 +1,6 @@
 {
-  "name": "meteor-stub-collections",
-  "private": true,
+  "name": "meteor-stub-collections-ts",
+  "private": false,
   "scripts": {
     "test": "meteor test-packages ./ --driver-package meteortesting:mocha",
     "lint": "eslint . --ext .js"
