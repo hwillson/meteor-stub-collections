@@ -1,26 +1,30 @@
 {
-  "name": "meteor-stub-collections",
-  "private": true,
+  "name": "meteor-stub-collections-ts",
+  "private": false,
+  "version": "1.1.1",
   "scripts": {
-    "test": "meteor test-packages ./ --driver-package meteortesting:mocha"
+    "test": "meteor test-packages ./ --driver-package meteortesting:mocha",
+    "lint": "eslint . --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bueno12223/meteor-stub-collections"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.2",
-    "eslint": "^4.11.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-meteor": "^4.1.4",
-    "eslint-plugin-react": "^7.5.1"
+    "@types/lodash": "^4.14.201",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0"
   },
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
     "plugins": [
-      "meteor"
+      "meteor",
+      "@typescript-eslint"
     ],
     "extends": [
-      "airbnb",
-      "plugin:meteor/recommended"
+      "plugin:meteor/recommended",
+      "plugin:@typescript-eslint/recommended"
     ],
     "settings": {
       "import/resolver": "meteor"
@@ -33,5 +37,9 @@
       "no-underscore-dangle": 0,
       "function-paren-newline": 0
     }
+  },
+  "dependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-meteor": "^7.3.0"
   }
 }

@@ -1,5 +1,4 @@
 import { Mongo } from 'meteor/mongo';
-import { Random } from 'meteor/random';
 import sinon from 'sinon';
 
 const StubCollections = (() => {

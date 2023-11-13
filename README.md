@@ -7,7 +7,7 @@ Easily stub out Meteor collections with in-memory local collections. The idea he
 ## Installation
 
 ```
-meteor add hwillson:stub-collections
+meteor add meteor-stub-collections-ts
 ```
 
 ### Usage via ES6 import
